@@ -13,14 +13,14 @@ def main():
 
     # Load and show input image
     # Include the path to the image that should be convolved here
-    provided_image = PIL.Image.open('checkerboard.png')
+    provided_image = PIL.Image.open('images/checkerboard.png')
 
     # Convert image to grayscale
     provided_image_bw = provided_image.convert('L')
 
     # Load and show personal image
     # Include the path to the image that should be convolved here
-    personal_image = PIL.Image.open('HTTT.jpg')
+    personal_image = PIL.Image.open('images/HTTT.jpg')
 
     # Convert image to grayscale
     personal_image_bw = personal_image.convert('L')
@@ -225,8 +225,8 @@ def tensors_to_images(tensors, conv2d):
         conv_result_image = conv_result_image.convert('RGB')
         
         # Save the resultant image as a png image file
-        conv_result_image.save('Task_'+str(conv2d.task)+'_Image_Kernel'+str(i+1)+'_'+str(int(time.time()))+'.png', 'PNG')
-        print("Convolution image saved as "+'Task_'+str(conv2d.task)+'_Image_Kernel'+str(i+1)+'_'+str(int(time.time()))+'.png')
+        conv_result_image.save('results/Task_'+str(conv2d.task)+'_Image_Kernel'+str(i+1)+'_'+str(int(time.time()))+'.png', 'PNG')
+        print("Convolution image saved as results/"+'Task_'+str(conv2d.task)+'_Image_Kernel'+str(i+1)+'_'+str(int(time.time()))+'.png')
 
 def plot_task_8(forward_times):
     
