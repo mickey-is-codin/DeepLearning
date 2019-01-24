@@ -117,7 +117,7 @@ class Conv2D(object):
         num_operations = [0 for x in kernels]
 
         for i in range(0,num_kernels):
-            print("\nRandomly generated kernel: ")
+            print("\nKernel: ")
             print(kernels[i])
             print("\nCurrent kernel number: %d" % (i+1))
             for channel in range(0,self.in_channel):
