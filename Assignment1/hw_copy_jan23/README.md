@@ -23,7 +23,7 @@ image as well as a count of the number of operations necessary to perform this c
 <strong>main.py</strong>
 <p>
 Used to instantiate Conv2D objects. Instantiation typically takes the form: 
-    '''
+    ```
 	conv2d = Conv2D(
     	in_channel=1,
     	o_channel=1,
@@ -31,7 +31,7 @@ Used to instantiate Conv2D objects. Instantiation typically takes the form:
     	stride=1,
     	mode='known'
 	)
-    '''
+    ```
 Also serves the purpose of timing and plotting tasks 8 and 9 for this assignment. 
 </p>
 
