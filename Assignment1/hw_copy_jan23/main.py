@@ -142,7 +142,7 @@ def main():
     [num_operations, conv_tensors] = conv2d.forward(personal_image)
     tensors_to_images(conv_tensors, conv2d)
 
-    '''#====Task Eight====#
+    #====Task Eight====#
     print("\nBeginning Task Eight")
     forward_times = []
     task_eight_start = time.time()
@@ -203,7 +203,7 @@ def main():
         if total_task_9_time > 1800:
             break
   
-    plot_task_9(kernel_sizes_plotting, operations_plotting)'''
+    plot_task_9(kernel_sizes_plotting, operations_plotting)
  
     print("Homework took %.2f seconds to complete." % (time.time() - overall_start))
 
