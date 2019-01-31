@@ -4,8 +4,13 @@
 <p></p>
 
 <h2>Logic Gates</h2>
+<strong>AND Gate Graph</strong>
 <img src="images/AND.png">
+
+<strong>OR Gate Graph</strong>
 <img src="images/OR.png">
+
+<strong>XOR Gate Graph</strong>
 <img src="images/XOR.png">
 
 
