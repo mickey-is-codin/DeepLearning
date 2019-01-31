@@ -15,6 +15,10 @@
 
 
 <h2>Logic Gates</h2>
+<p>One useful test of a simple forward pass of a neural network is the creation of a very simple classifier. Since we're taking a weighted sum of inputs we know that we can make <a src="https://en.wikipedia.org/wiki/Linear_combination">linear combination</a> estimates of classes. The simplest classification is then a single drawn line designating one class on one side of the line and a second class on the other side. One incredibly useful real-world example of such a <i>linear decision function</i> is a simple logic gate (we'll get to XOR in a minute). We can represent AND and OR quite easily by graphing the lines we use to divide 4 points (0=False, 1=True).</p>
+
+<p>Once we know what line will divide two given points then we've actually almost fully created the neural network to represent that logic gate. Since we are taking a weighted sum of inputs, we just need a linear combination of these inputs to represent our output and the equation for a dividing line happens to be one such linear combination. This is why logic gates are a great test of a forward pass of a neural network--there is no need to reset or shift the weights since we can graphically understand quite easily what the weights should be.</p>
+
 <strong>AND Gate Graph</strong>
 <img src="images/AND.png">
 
@@ -27,12 +31,27 @@
 <strong>OR Gate Network Representation</strong>
 <img src="images/OR_Network.png">
 
+<p>For the XOR gate we have a bit more complicated situation. Since there is no single line (linear 2D decision function) that can encapsulate our desired numbers, we actually need two lines. This can be accomplished quite easily by a simple 2 layer network. The first layer will have a NAND and an OR, followed by an AND to finish the second layer and map it to our output. A NAND gate is simply the negative weights of an AND gate. We can see this network below.</p>
+
 <strong>XOR Gate Graph</strong>
 <img src="images/XOR.png">
 
 <strong>XOR Gate Network Representation</strong>
 <img src="images/XOR_Network.png">
 
+<p>And that's it! With just a few basic tools and a single forward pass (with known weights) we can create useful logic gates that are fully useable within Python, all using the principles of machine learning and neural networks!</p>
+
 <h2>Assignment Report</h2>
-<p></p>
-<img src="images/running_test.gif">
+<p>There are five files used to test this assignment contained within this repo: </p>
+
+<ul>
+    <li>PartA.ipynb: Python notebook I created that walks you through the network creation process.</li>
+    <li>PartB.ipynb: Another notebook that sets up the logic gates and runs them. (Both notebooks can be viewed in browser!)</li>
+    <li>neural_network.py: Definition of NeuralNetwork class.</li>
+    <li>logic_gates.py: Definition of AND, OR, NOT, and XOR classes.</li>
+    <li>test.py: Script to test both the neural_network.py and logic_gates.py scripts. Can be run to accomplish both Part A and Part B of the homework.</li>
+</ul>
+
+<p>Below is an example shell session that should result from running test.py.</p>
+
+<img src="images/tty.gif">
