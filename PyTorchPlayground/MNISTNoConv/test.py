@@ -2,7 +2,9 @@ from mnist_network import DigitNet
 
 import torch, torchvision
 import visdom
+
 import numpy as np
+import matplotlib.pyplot as plt
 
 def main():
 
@@ -28,9 +30,9 @@ def main():
     network_model = DigitNet()
 
     # Train our network using the MNIST data loader
-    train(network_model, mnist_loader)
+    train(network_model, mnist_loader, loss_spec="cross", plot_engine="matplotlib")
 
-def train(network_model, mnist_loader, loss_spec="cross"):
+def train(network_model, mnist_loader, loss_spec="cross", plot_engine="visdom"):
 
     # Initialize the loss function we will be using
     if loss_spec == "mse":
@@ -47,14 +49,20 @@ def train(network_model, mnist_loader, loss_spec="cross"):
     # Number of times the model will see the whole MNIST dataset
     max_epochs = 3
 
+    if plot_engine == "matplotlib":
+        plot_loss_x = []
+        plot_loss_y = []
+        mat_loss_x = 0
+
     # Iterate through epochs and then batches to complete the dataset within each epoch.
     for current_epoch in range(1,max_epochs+1):
 
-        # Instantiate visdom object. We will be using it to make a line plot
-        # so we will initialize the line method at point (0,0).
-        vis = visdom.Visdom()
-        vis_window = vis.line(np.array([0]), np.array([0]))
-        loss_x = 0
+        if plot_engine == "visdom":
+            # Instantiate visdom object. We will be using it to make a line plot
+            # so we will initialize the line method at point (0,0).
+            vis = visdom.Visdom()
+            vis_window = vis.line(np.array([0]), np.array([0]))
+            vis_loss_x = 0
 
         for batch_ix, (batch_images, batch_labels) in enumerate(mnist_loader):
 
@@ -83,11 +91,23 @@ def train(network_model, mnist_loader, loss_spec="cross"):
             # on our gradients computed from the backward pass.
             optimizer.step()
 
-            # Pass an x and y point to our visdom graph
-            vis.line(np.array([loss.item()]),np.array([loss_x]), win=vis_window, update='append')
+            if plot_engine == "visdom":
+                # Pass an x and y point to our visdom graph
+                vis.line(
+                    np.array([loss.item()]),np.array([vis_loss_x]),
+                    win=vis_window,
+                    update='append',
+                    opts=dict(title=str(loss_spec))
+                )
+                vis_loss_x = vis_loss_x + 1
+            elif plot_engine == "matplotlib":
+                plot_loss_x.append(mat_loss_x)
+                plot_loss_y.append(loss.item())
+                print("Samples seen: %d" % (mat_loss_x))
+                mat_loss_x = mat_loss_x + 1
 
-            # Increment the loss_x value
-            loss_x = loss_x + 1
+    if plot_engine == "matplotlib":
+        mat_plot_loss(plot_loss_x, plot_loss_y, loss_spec, max_epochs)
 
 def build_batch_labels(network_model, batch_labels):
 
@@ -97,6 +117,15 @@ def build_batch_labels(network_model, batch_labels):
         template[row_ix, int(batch_labels[row_ix])] = 1
 
     return template
+
+def mat_plot_loss(x, y, loss_spec, max_epochs):
+    fig = plt.figure()
+    plt.plot(x, y)
+    plt.title("Network Training over "+str(max_epochs)+" Epochs(loss_spec = "+loss_spec+")")
+    plt.xlabel("Number of samples seen by network")
+    plt.ylabel("Loss")
+    plt.grid(True)
+    plt.show()
 
 if __name__ == "__main__":
     main()
