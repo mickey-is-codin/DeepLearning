@@ -9,6 +9,9 @@ verify_ssl = true
 jupyter = "*"
 numpy = "*"
 torch = "*"
+matplotlib = "*"
+torchvision = "*"
+visdom = "*"
 
 [requires]
 python_version = "2.7"
