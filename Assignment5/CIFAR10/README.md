@@ -1,6 +1,6 @@
-#CIFAR 10 Image Dataset Deep Learning
+# CIFAR 10 Image Dataset Deep Learning
 
-###Introduction
+### Introduction
 The CIFAR10 dataset is a group of images compiled for the purpose of deep learning. It consists of 60,000 32x32 images that can be categorized into 10 classes:
 
 * airplanes
@@ -14,7 +14,11 @@ The CIFAR10 dataset is a group of images compiled for the purpose of deep learni
 * ship
 * trucks
 
+### Problem Statement
+
 This classification problem is a great natural extension of the problems tackled when training a classifier for the MNIST dataset in previous assignments. We have a large group of images that should be classified into 10 different possible classes. The main differences and difficulties with the CIFAR dataset, however, is that it contains much more spatially complex images as well as 3 color input channels that must be accounted for when classifying.
+
+### Solution - Network Architecture
 
 We tackle these difficulties by creating the first *convolutional* neural network of this semester. The first, and generally most simple architecture to use when beginning to learn about convolutional neural networks is LeNet. The layout of a typical LeNet neural network is as follows:
 
