@@ -1,5 +1,4 @@
-#ignore data folders
 **/data/
-
-#ignore DS_STORE files
 *.DS_Store
+*.lock
+*Pipfile
