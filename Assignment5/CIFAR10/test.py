@@ -64,7 +64,7 @@ def main():
         train_loader,
         test_loader,
         loss_spec="cross",
-        plot_engine="matplotlib",
+        plot_engine="visdom",
         optim="sgd"
     )
 

@@ -1,18 +1,7 @@
-# CIFAR 10 Image Dataset Deep Learning
+# CIFAR 100 Image Dataset Deep Learning
 
 ### Introduction
-The CIFAR10 dataset is a group of images compiled for the purpose of deep learning. It consists of 60,000 32x32 images that can be categorized into 10 classes:
-
-* airplanes
-* automobiles
-* birds
-* cats
-* deer
-* dogs
-* frogs
-* horses
-* ship
-* trucks
+The CIFAR10 dataset is a group of images compiled for the purpose of deep learning. It consists of 60,000 32x32 images that can be categorized into 100 [classes]\(https://www.cs.toronto.edu/~kriz/cifar.html). This is an extension of our [CIFAR100]\(../CIFAR10/) dataset classifier.
 
 ### Problem Statement
 

@@ -13,13 +13,13 @@ def main():
     T = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
 
     # Load the dataset itself
-    cifar_train = torchvision.datasets.CIFAR10(
+    cifar_train = torchvision.datasets.CIFAR100(
         'data/',
         transform=T,
         download=True,
         train=True
     )
-    cifar_test = torchvision.datasets.CIFAR10(
+    cifar_test = torchvision.datasets.CIFAR100(
         'data/',
         transform=T,
         download=True,
@@ -27,19 +27,6 @@ def main():
     )
 
     batch_size = 64
-
-    # Create a data_loader wrapper so that we can actually iterate through the
-    # dataset that we've loaded in.
-    train_loader = torch.utils.data.DataLoader(
-        cifar_train,
-        batch_size=batch_size,
-        shuffle=True,
-    )
-    test_loader = torch.utils.data.DataLoader(
-        cifar_test,
-        batch_size=batch_size,
-        shuffle=True
-    )
 
     # Define the classes that exist in the CIFAR dataset
     classes = [
@@ -55,6 +42,19 @@ def main():
         "truck"
     ]
 
+    # Create a data_loader wrapper so that we can actually iterate through the
+    # dataset that we've loaded in.
+    train_loader = torch.utils.data.DataLoader(
+        cifar_train,
+        batch_size=batch_size,
+        shuffle=True,
+    )
+    test_loader = torch.utils.data.DataLoader(
+        cifar_test,
+        batch_size=batch_size,
+        shuffle=True
+    )
+
     # Instantiate our network model
     network_model = ObjectNet(batch_size)
 
@@ -63,10 +63,12 @@ def main():
         network_model,
         train_loader,
         test_loader,
-        loss_spec="mse",
+        loss_spec="cross",
         plot_engine="visdom",
         optim="sgd"
     )
+
+    test(network_model, test_loader, classes)
 
 def train(network_model, cifar_loader, test_loader, loss_spec="cross", plot_engine="visdom", optim="sgd"):
 
@@ -96,7 +98,7 @@ def train(network_model, cifar_loader, test_loader, loss_spec="cross", plot_engi
         )
 
     # Number of times the model will see the whole CIFAR dataset
-    max_epochs = 5
+    max_epochs = 3
 
     if plot_engine == "matplotlib":
         plot_loss_x = []
@@ -161,10 +163,28 @@ def train(network_model, cifar_loader, test_loader, loss_spec="cross", plot_engi
 
         # Test the network after the training for this epoch
         guess_random_image(network_model, test_loader)
-        # test()
 
     if plot_engine == "matplotlib":
         mat_plot_loss(plot_loss_x, plot_loss_y, loss_spec, max_epochs)
+
+def test(network_model, test_loader, classes):
+
+    class_correct = [0 for x in range(10)]
+    class_total = [0 for x in range(10)]
+
+    for data in test_loader:
+        images, labels = data
+        outputs = network_model(images)
+        _, predicted = torch.max(outputs, 1)
+        c = (predicted == labels).squeeze()
+        for i in range(4):
+            label = labels[i]
+            class_correct[label] += c[i].item()
+            class_total[label] += 1
+
+    for i in range(10):
+        print('Accuracy of %5s : %2d %%' % (
+            classes[i], 100 * class_correct[i] / class_total[i]))
 
 def build_batch_labels(network_model, batch_labels):
 
