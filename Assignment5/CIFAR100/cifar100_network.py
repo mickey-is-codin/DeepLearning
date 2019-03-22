@@ -6,7 +6,7 @@ class ObjectNet(torch.nn.Module):
         super(ObjectNet, self).__init__()
 
         self.input_dim = 32
-        self.num_classes = 10
+        self.num_classes = 100
         self.batch_size = batch_size
 
         # ==Neural network architecture (layer definition)==
