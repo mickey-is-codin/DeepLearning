@@ -32,11 +32,11 @@ We tackle these difficulties by creating the first *convolutional* neural networ
 * Nonlinear Activation Function(ReLU)
 * Fully Connected Linear Layer
 
-![LeNet]\(https://github.com/smit2300/DeepLearning/blob/master/Assignment5/CIFAR10/images/LeNet.png)
+![LeNet](images/LeNet.png)
 
 This network architecture is recreated in the current repository as a PyTorch neural network and was used to train the CIFAR 10 dataset. As before with our previous MNIST classifier, the program can be run by executing test.py after changing any desired parameters for output (visdom v. matplotlib graphing, mse v. crossentropy loss, and sgd v. adam optimizer). The final loss graphs as well as terminal output of the program's accuracy can be seen below:
 
-![Accuracy]\(https://github.com/smit2300/DeepLearning/blob/master/Assignment5/CIFAR10/images/accuracy_output.png)
-![Loss]\(https://github.com/smit2300/DeepLearning/blob/master/Assignment5/CIFAR10/images/grad_descent.png)
+![Accuracy](images/accuracy_output.png)
+![Loss](images/grad_descent.png)
 
 As you can see, accuracy is quite volatile and varies largely between different output classes. Particularly, our network is quite good at detecting if an image contains a frog, and performs consistently quite poorly at identifying cats.
